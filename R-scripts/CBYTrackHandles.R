@@ -1,3 +1,14 @@
+#############################################################
+#
+# LeSean Bruneau Blog
+#   Website: http://leseanbruneau.com
+#   Twitter: @leseanbruneau
+#   Blog Post:  TBD
+#
+# Desc:  Simple R script to caculate Saratoga 2019 
+#     track handles
+#
+#############################################################
 
 # Set working directory - sar is the Ubuntu VM username
 setwd('/home/sar/saratoga-data/csv')
