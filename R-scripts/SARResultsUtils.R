@@ -62,25 +62,27 @@ postPosFourth <- function(races, postPos) {
 
 
 allPostPosResults <- function(races) {
-  allppResults <- data.frame(matrix(ncol = 6))
-  names(allppResults) <- c("PostPosNum", "Races", "Win", "Place", "Show", "Fourth")
+  allppResults <- data.frame(matrix(ncol = 10))
+  names(allppResults) <- c("PostPosNum", "Races", "Win", "WinPct", "Place", "PlacePct", "Show", "ShowPct", "Fourth", "FourthPct")
   
-  ppReults <- data.frame(matrix(ncol = 6))
-  names(ppReults) <- c("PostPosNum", "Races", "Wins", "Place", "Show", "Fourth")
+  ppReults <- data.frame(matrix(ncol = 10))
+  names(ppReults) <- c("PostPosNum", "Races", "Win", "WinPct", "Place", "PlacePct", "Show", "ShowPct", "Fourth", "FourthPct")
   totalRaces <- subset(races, (races$NUMHORSES > 3))
   allPos <- max(totalRaces$NUMHORSES)
 
   for (post in 1:allPos) {
     ppReults <- c(post, totalPPRaces(totalRaces, post), 
-                postPosWins(totalRaces, post), postPosPlace(totalRaces, post), 
-                postPosShow(totalRaces, post), postPosFourth(totalRaces, post))
+                postPosWins(totalRaces, post), round(postPosWins(totalRaces, post) / totalPPRaces(totalRaces, post), digits=3),
+                postPosPlace(totalRaces, post), round(postPosPlace(totalRaces, post) / totalPPRaces(totalRaces, post), digits=3),
+                postPosShow(totalRaces, post), round(postPosShow(totalRaces, post) / totalPPRaces(totalRaces, post), digits=3),
+                postPosFourth(totalRaces, post), round(postPosFourth(totalRaces, post) / totalPPRaces(totalRaces, post), digits=3))
     allppResults <- rbind(allppResults, ppReults)
   }
   
   #Remove first blank line from data frame
   allppResults <- tail(allppResults, -1)
   
-  print(allppResults, row.names = FALSE)
+  #print(allppResults, row.names = FALSE)
   
 }
 
