@@ -13,6 +13,12 @@
 #sarRaceResults <- read.table("~/saratoga-data/csv/all-2019-SAR-RaceResults.txt", sep=",", header=TRUE, stringsAsFactors = TRUE)
 
 
+totalPPRaces <- function(races, pp) {
+  totalRaces <- subset(races, races$NUMHORSES >= pp)
+
+  return(nrow(totalRaces))
+}
+
 postTimeFavs <- function(races) {
   ptFavResults <- data.frame(matrix(ncol = 6))
   names(ptFavResults) <- c("races", "first", "second", "third", "fourth", "other")
@@ -33,4 +39,53 @@ postTimeFavs <- function(races) {
   
   return (ptFavResults)
 }
+
+postPosWins <- function(races, postPos) {
+  ppWins <- subset(races, (races$PPNUM1 == postPos))
+  return(nrow(ppWins))
+}
+
+postPosPlace <- function(races, postPos) {
+  ppPlace <- subset(races, (races$PPNUM2 == postPos))
+  return(nrow(ppPlace))
+}
+
+postPosShow <- function(races, postPos) {
+  ppShow <- subset(races, (races$PPNUM3 == postPos))
+  return(nrow(ppShow))
+}
+
+postPosFourth <- function(races, postPos) {
+  ppFourth <- subset(races, (races$PPNUM4 == postPos))
+  return(nrow(ppFourth))
+}
+
+
+allPostPosResults <- function(races) {
+  allppResults <- data.frame(matrix(ncol = 6))
+  names(allppResults) <- c("PostPosNum", "Races", "Win", "Place", "Show", "Fourth")
+  
+  ppReults <- data.frame(matrix(ncol = 6))
+  names(ppReults) <- c("PostPosNum", "Races", "Wins", "Place", "Show", "Fourth")
+  totalRaces <- subset(races, (races$NUMHORSES > 3))
+  allPos <- max(totalRaces$NUMHORSES)
+
+  for (post in 1:allPos) {
+    ppReults <- c(post, totalPPRaces(totalRaces, post), 
+                postPosWins(totalRaces, post), postPosPlace(totalRaces, post), 
+                postPosShow(totalRaces, post), postPosFourth(totalRaces, post))
+    allppResults <- rbind(allppResults, ppReults)
+  }
+  
+  #Remove first blank line from data frame
+  allppResults <- tail(allppResults, -1)
+  
+  print(allppResults, row.names = FALSE)
+  
+}
+
+
+
+
+
 
