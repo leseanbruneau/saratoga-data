@@ -26,10 +26,10 @@ write_json(trackHandles, "~/saratoga-data/json/track-handles.json", pretty = TRU
 
 
 # Create Saratoga 2019 Race Results data frame from CSV file
-sarRaceResults <- read.table("~/Saratoga/saratoga-data/csv/all-2019-SAR-RaceResults.txt", sep=",", header=TRUE, stringsAsFactors = TRUE)
+sarRaceResults <- read.table("~/saratoga-data/csv/all-2019-SAR-RaceResults.txt", sep=",", header=TRUE, stringsAsFactors = TRUE)
 
 # write JSON file from csv file data
-write_json(sarRaceResults, "~/Saratoga/saratoga-data/json/all-2019-SAR-RaceResults.json", pretty = TRUE)
+write_json(sarRaceResults, "~/saratoga-data/json/all-2019-SAR-RaceResults.json", pretty = TRUE)
 
 
 
